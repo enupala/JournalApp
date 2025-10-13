@@ -7,6 +7,7 @@ import com.kalyani.journalApp.repository.UserRepo;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,11 +21,19 @@ public class JournalEntryService {
     @Autowired
     private UserRepo userRepo;
 
+    @Transactional
     public void save(JournalEntry journalEntry, String userName) {
-        User user = userService.getUserByName(userName);
-        JournalEntry saved = journalEntryRepo.save(journalEntry);
-        user.getJournalEntries().add(saved);
-        userRepo.save(user);
+     try{
+         User user = userService.getUserByName(userName);
+         JournalEntry saved = journalEntryRepo.save(journalEntry);
+         user.getJournalEntries().add(saved);
+         user.setUserName(null);
+         userService.save(user);
+     }
+     catch(Exception e){
+         System.out.println(e.getMessage());
+         throw new  RuntimeException("An error occurred while saving the journal entry",e);
+     }
     }
 
     public void saveEntry(JournalEntry journalEntry) {
