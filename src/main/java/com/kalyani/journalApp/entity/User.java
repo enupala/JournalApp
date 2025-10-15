@@ -1,7 +1,6 @@
 package com.kalyani.journalApp.entity;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 import org.bson.types.ObjectId;
@@ -26,4 +25,5 @@ public class User {
     private String password;
     @DBRef
     private List<JournalEntry> journalEntries=new ArrayList<>();
+    private List<String> roles;
 }
