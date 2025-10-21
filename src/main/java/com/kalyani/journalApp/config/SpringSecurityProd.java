@@ -15,8 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-@Profile("dev")
-public class SpringSecurity extends WebSecurityConfigurerAdapter {
+@Profile("prod")
+public class SpringSecurityProd extends WebSecurityConfigurerAdapter {
 
     @Autowired
     CustomUserDetailsServiceImpl  customUserDetailsServiceImpl;
@@ -25,7 +25,7 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
        http.authorizeRequests()
                .antMatchers("/journal/**","/user/**").authenticated()
                .antMatchers("/admin/**").hasRole("ADMIN")
-               .anyRequest().permitAll()
+               .anyRequest().authenticated()
                .and()
                .httpBasic();
       //http.csrf().disable();//it will disable csrf but still opens session.
