@@ -1,5 +1,6 @@
 package com.kalyani.journalApp.entity;
 
+import com.kalyani.journalApp.enums.Sentiment;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -19,4 +20,5 @@ public class JournalEntry {
     @NonNull
     private String title;
     private String content;
+    private Sentiment sentiment;
 }
