@@ -32,4 +32,6 @@ public class UserRepositoryImpl {
         List<User> users = mongoTemplate.find(query, User.class);
         return users;
     }
+
+
 }
